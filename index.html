@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <main  style="text-align: center">
+    <h1 id="face"></h1>
+    <div>
+      <button id="happy">Happy</button>
+      <button id="sad">Sad</button>
+      <button id="angry">Angry</button>
+      <button id="confused">Confused</button>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+  <script>
+const DEFAULT_STATE = {face: '┐( ˘_˘ )┌'}
+function moodReducer(state = DEFAULT_STATE, action) {//step2:reducer handles action
+  switch (action.type) {
+    case 'MOOD_HAPPY':
+      return { ...state, face: action.payload }
+    case 'MOOD_SAD':
+      return { ...state, face: action.payload }   
+    case 'MOOD_ANGRY':
+      return { ...state, face: action.payload }
+    case 'MOOD_CONFUSED':
+      return { ...state, face: action.payload }
+    default:
+      return state
+  }
+}    
+
+const store = Redux.createStore(moodReducer)//step3:state is updated
+const face = document.getElementById('face')
+document.getElementById('happy').addEventListener('click', () => {
+  store.dispatch({ type: 'MOOD_HAPPY', payload: '٩(◕‿◕｡)۶' })//step1:dispatch action
+})
+document.getElementById('sad').addEventListener('click', () => {
+  store.dispatch({ type: 'MOOD_SAD', payload: '(ಥ﹏ಥ)' })
+})
+document.getElementById('angry').addEventListener('click', () => {
+  store.dispatch({ type: 'MOOD_ANGRY', payload: '٩(ఠ益ఠ)۶' })
+})
+document.getElementById('confused').addEventListener('click', () => {
+  store.dispatch({ type: 'MOOD_CONFUSED', payload: 'ლ(ಠ_ಠ ლ)' })
+})
+
+function renderFace() {
+  face.innerHTML = store.getState().face
+}
+renderFace()
+store.subscribe(renderFace)//step4:notify subscriber
+  </script>
+</body>
+</html>
